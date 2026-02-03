@@ -7,7 +7,7 @@ import { getAnalytics } from "../firebase";
 import { createErrorMessage } from "../utils/misc";
 import { qs } from "../utils/dom";
 
-let analytics: AnalyticsType;
+let analytics: AnalyticsType | undefined;
 
 export async function log(
   eventName: string,
