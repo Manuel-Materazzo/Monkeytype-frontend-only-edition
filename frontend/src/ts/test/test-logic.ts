@@ -1372,6 +1372,24 @@ async function saveResultLocally(
     ) as unknown as SnapshotResult<Mode>;
     snapshotResult._id = `local_${Date.now()}_${Math.random()}`;
 
+    const localPb = await DB.getLocalPB(
+      result.mode,
+      result.mode2,
+      result.punctuation,
+      result.numbers,
+      result.language,
+      result.difficulty,
+      result.lazyMode,
+      getFunbox(result.funbox),
+    );
+
+    const isPb = localPb === undefined || result.wpm > localPb.wpm;
+
+    if (isPb) {
+      snapshotResult.isPb = true;
+      Result.showCrown("normal");
+    }
+
     const snapxp = snapshot.xp ?? 0;
 
     const lastResult = snapshot.results?.[0];
@@ -1382,6 +1400,7 @@ async function saveResultLocally(
     const localDataToSave: DB.SaveLocalResultData = {
       result: snapshotResult,
       xp: xpResult.xp,
+      isPb,
     };
 
     DB.saveLocalResult(localDataToSave);
