@@ -264,23 +264,6 @@ async function signInWithGitHub(): Promise<void> {
   return signInWithProvider(githubProvider);
 }
 
-async function addGoogleAuth(): Promise<void> {
-  return addAuthProvider("Google", gmailProvider);
-}
-
-async function addGithubAuth(): Promise<void> {
-  return addAuthProvider("GitHub", githubProvider);
-}
-
-async function addAuthProvider(
-  _providerName: string,
-  _provider: AuthProvider,
-): Promise<void> {
-  Notifications.add("Authentication not available", -1, {
-    duration: 3,
-  });
-}
-
 export function signOut(): void {
   if (!isAuthAvailable()) {
     Notifications.add("Authentication uninitialized", -1, {
@@ -400,14 +383,6 @@ qs("nav .accountButtonAndMenu .menu button.signOut")?.on("click", () => {
 qs(".pageLogin .register form")?.on("submit", (e) => {
   e.preventDefault();
   void signUp();
-});
-
-qs(".pageAccountSettings")?.onChild("click", "#addGoogleAuth", () => {
-  void addGoogleAuth();
-});
-
-qs(".pageAccountSettings")?.onChild("click", "#addGithubAuth", () => {
-  void addGithubAuth();
 });
 
 qs(".pageAccount")?.onChild("click", ".sendVerificationEmail", () => {

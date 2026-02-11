@@ -101,20 +101,6 @@ const routes: Route[] = [
     },
   },
   {
-    path: "/account-settings",
-    load: async (_params, options) => {
-      if (!isAuthAvailable()) {
-        await navigate("/", options);
-        return;
-      }
-      if (!isAuthenticated()) {
-        await navigate("/login", options);
-        return;
-      }
-      await PageController.change("accountSettings", options);
-    },
-  },
-  {
     path: "/profile",
     load: async (_params, options) => {
       await PageController.change("profileSearch", options);

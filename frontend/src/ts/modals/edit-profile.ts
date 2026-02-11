@@ -34,6 +34,7 @@ function hide(): void {
   });
 }
 
+const nameInput = qsr<HTMLInputElement>("#editProfileModal .name");
 const bioInput = qsr<HTMLTextAreaElement>("#editProfileModal .bio");
 const keyboardInput = qsr<HTMLTextAreaElement>("#editProfileModal .keyboard");
 const twitterInput = qsr<HTMLInputElement>("#editProfileModal .twitter");
@@ -59,6 +60,7 @@ function hydrateInputs(): void {
   const { bio, keyboard, socialProfiles, showActivityOnPublicProfile } =
     snapshot.details ?? {};
   currentSelectedBadgeId = -1;
+  nameInput.setValue(snapshot.name ?? "");
 
   bioInput.setValue(bio ?? "");
   keyboardInput.setValue(keyboard ?? "");
@@ -165,6 +167,10 @@ async function updateProfile(): Promise<void> {
   }
 
   snapshot.details = updates;
+  const newName = nameInput.getValue()?.trim() ?? "";
+  if (newName.length > 0) {
+    snapshot.name = newName;
+  }
   snapshot.inventory?.badges.forEach((badge) => {
     if (badge.id === currentSelectedBadgeId) {
       badge.selected = true;

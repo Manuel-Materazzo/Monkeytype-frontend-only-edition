@@ -24,7 +24,6 @@ import {
 } from "../utils/misc";
 import * as CustomTextState from "../states/custom-text-name";
 import * as ThemeController from "../controllers/theme-controller";
-import * as AccountSettings from "../pages/account-settings";
 import {
   ExecReturn,
   PasswordInput,
@@ -294,8 +293,6 @@ list.removeGoogleAuth = new SimpleModal({
       };
     }
 
-    AccountSettings.updateUI();
-
     reloadAfter(3);
     return {
       status: 1,
@@ -347,8 +344,6 @@ list.removeGithubAuth = new SimpleModal({
         message,
       };
     }
-
-    AccountSettings.updateUI();
 
     reloadAfter(3);
     return {
@@ -402,8 +397,6 @@ list.removePasswordAuth = new SimpleModal({
         message,
       };
     }
-
-    AccountSettings.updateUI();
 
     reloadAfter(3);
     return {
@@ -657,7 +650,6 @@ list.addPasswordAuth = new SimpleModal({
       };
     }
 
-    AccountSettings.updateUI();
     return {
       status: 1,
       message: "Password authentication added",
@@ -981,7 +973,6 @@ list.unlinkDiscord = new SimpleModal({
     snap.discordAvatar = undefined;
     snap.discordId = undefined;
     DB.setSnapshot(snap);
-    AccountSettings.updateUI();
 
     return {
       status: 1,
