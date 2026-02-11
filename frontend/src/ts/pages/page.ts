@@ -15,7 +15,6 @@ export type PageName =
   | "profile"
   | "profileSearch"
   | "404"
-  | "leaderboards"
   | "friends";
 
 type Options<T> = {

@@ -37,7 +37,6 @@ import {
   UserEmailSchema,
   UserNameSchema,
 } from "@monkeytype/schemas/users";
-import { goToPage } from "../pages/leaderboards";
 import FileStorage from "../utils/file-storage";
 import { z } from "zod";
 import { remoteValidation } from "../utils/remote-validation";
@@ -758,53 +757,6 @@ list.resetAccount = new SimpleModal({
   },
 });
 
-list.optOutOfLeaderboards = new SimpleModal({
-  id: "optOutOfLeaderboards",
-  title: "Opt out of leaderboards",
-  inputs: [
-    {
-      placeholder: "password",
-      type: "password",
-      initVal: "",
-    },
-  ],
-  text: "Are you sure you want to opt out of leaderboards?",
-  buttonText: "opt out",
-  onlineOnly: true,
-  execFn: async (_thisPopup, password): Promise<ExecReturn> => {
-    const reauth = await reauthenticate({ password });
-    if (reauth.status !== 1) {
-      return {
-        status: reauth.status,
-        message: reauth.message,
-      };
-    }
-
-    const response = await Ape.users.optOutOfLeaderboards();
-    if (response.status !== 200) {
-      return {
-        status: -1,
-        message: "Failed to opt out",
-        notificationOptions: { response },
-      };
-    }
-
-    reloadAfter(3);
-
-    return {
-      status: 1,
-      message: "Leaderboards opt out successful",
-    };
-  },
-  beforeInitFn: (thisPopup): void => {
-    if (!isAuthenticated()) return;
-    if (!isUsingPasswordAuthentication()) {
-      thisPopup.inputs = [];
-      thisPopup.buttonText = "reauthenticate to opt out";
-    }
-  },
-});
-
 list.applyCustomFont = new SimpleModal({
   id: "applyCustomFont",
   title: "Custom font",
@@ -1222,35 +1174,6 @@ list.devGenerateData = new SimpleModal({
       hideOptions: {
         clearModalChain: true,
       },
-    };
-  },
-});
-
-list.lbGoToPage = new SimpleModal({
-  id: "lbGoToPage",
-  title: "Go to page",
-  inputs: [
-    {
-      type: "number",
-      placeholder: "Page number",
-    },
-  ],
-  buttonText: "Go",
-  execFn: async (_thisPopup, pageNumber): Promise<ExecReturn> => {
-    const page = parseInt(pageNumber, 10);
-    if (isNaN(page) || page < 1) {
-      return {
-        status: 0,
-        message: "Invalid page number",
-      };
-    }
-
-    goToPage(page - 1);
-
-    return {
-      status: 1,
-      message: "Navigating to page " + page,
-      showNotification: false,
     };
   },
 });

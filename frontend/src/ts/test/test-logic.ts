@@ -39,7 +39,6 @@ import { getAuthenticatedUser, isAuthenticated } from "../firebase";
 import * as ConnectionState from "../states/connection";
 import * as KeymapEvent from "../observables/keymap-event";
 import * as LazyModeState from "../states/remember-lazy-mode";
-import Format from "../utils/format";
 import { QuoteLength, QuoteLengthConfig } from "@monkeytype/schemas/configs";
 import { Mode } from "@monkeytype/schemas/shared";
 import {
@@ -1323,26 +1322,6 @@ async function saveResult(
     localDataToSave.isPb = true;
   } else {
     Result.showErrorCrownIfNeeded();
-  }
-
-  const dailyLeaderboardEl = document.querySelector(
-    "#result .stats .dailyLeaderboard",
-  ) as HTMLElement;
-
-  if (data.dailyLeaderboardRank === undefined) {
-    dailyLeaderboardEl.classList.add("hidden");
-  } else {
-    dailyLeaderboardEl.classList.remove("hidden");
-    dailyLeaderboardEl.style.maxWidth = "13rem";
-
-    animate(dailyLeaderboardEl, {
-      opacity: [0, 1],
-      duration: Misc.applyReducedMotion(250),
-    });
-
-    qs("#result .stats .dailyLeaderboard .bottom")?.setHtml(
-      Format.rank(data.dailyLeaderboardRank, { fallback: "" }),
-    );
   }
 
   qs("#retrySavingResultButton")?.hide();

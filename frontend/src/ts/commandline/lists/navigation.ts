@@ -13,15 +13,7 @@ const commands: Command[] = [
       void navigate("/");
     },
   },
-  {
-    id: "viewLeaderboards",
-    display: "View Leaderboards",
-    alias: "navigate go to",
-    icon: "fa-crown",
-    exec: (): void => {
-      void navigate("/leaderboards");
-    },
-  },
+
   {
     id: "viewAbout",
     display: "View About Page",

@@ -12,7 +12,6 @@ export type PopupKey =
   | "addPasswordAuth"
   | "deleteAccount"
   | "resetAccount"
-  | "optOutOfLeaderboards"
   | "applyCustomFont"
   | "resetPersonalBests"
   | "resetSettings"
@@ -24,8 +23,7 @@ export type PopupKey =
   | "resetProgressCustomTextLong"
   | "updateCustomTheme"
   | "deleteCustomTheme"
-  | "devGenerateData"
-  | "lbGoToPage";
+  | "devGenerateData";
 
 export const list: Record<PopupKey, SimpleModal | undefined> = {
   updateEmail: undefined,
@@ -37,7 +35,6 @@ export const list: Record<PopupKey, SimpleModal | undefined> = {
   addPasswordAuth: undefined,
   deleteAccount: undefined,
   resetAccount: undefined,
-  optOutOfLeaderboards: undefined,
   applyCustomFont: undefined,
   resetPersonalBests: undefined,
   resetSettings: undefined,
@@ -50,7 +47,6 @@ export const list: Record<PopupKey, SimpleModal | undefined> = {
   updateCustomTheme: undefined,
   deleteCustomTheme: undefined,
   devGenerateData: undefined,
-  lbGoToPage: undefined,
 };
 
 export function showPopup(
