@@ -46,7 +46,7 @@ jobs:
       - name: Prepare electron app directory
         working-directory: frontend
         run: |
-          mkdir -p electron-app
+          mkdir -p electron-app/node_modules
           cp -r dist electron-app/
           cp -r dist-electron electron-app/
           node -e "
@@ -54,6 +54,7 @@ jobs:
             const pkg = { name: p.name, version: p.version, main: p.main };
             require('fs').writeFileSync('electron-app/package.json', JSON.stringify(pkg, null, 2));
           "
+          echo '{}' > electron-app/node_modules/.package-lock.json
 
       - name: Build Electron app
         run: node node_modules/electron-builder/cli.js build --config electron-builder.config.json --${{ matrix.platform }} --publish never
