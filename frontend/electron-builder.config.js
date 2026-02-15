@@ -1,0 +1,31 @@
+module.exports = {
+  appId: "com.monkeytype.desktop",
+  productName: "Monkeytype",
+  directories: {
+    app: "electron-app",
+    output: "release",
+  },
+  files: ["dist/**/*", "dist-electron/**/*"],
+  beforeBuild: () => {
+    // Returning false tells electron-builder that node_modules are handled externally,
+    // which skips the node module collector entirely. This prevents OOM errors caused by
+    // electron-builder running `npm ls` in pnpm workspaces.
+    return false;
+  },
+  win: {
+    target: ["nsis", "portable"],
+    icon: "../static/images/icons/general_icon_x512.png",
+  },
+  mac: {
+    target: ["dmg"],
+    icon: "../static/images/icons/general_icon_x512.png",
+  },
+  linux: {
+    target: ["AppImage", "deb"],
+    icon: "../static/images/icons/general_icon_x512.png",
+  },
+  nsis: {
+    oneClick: false,
+    allowToChangeInstallationDirectory: true,
+  },
+};
