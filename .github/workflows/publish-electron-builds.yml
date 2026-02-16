@@ -52,7 +52,7 @@ jobs:
           node -e "
             const p = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
             const pkg = {
-              name: p.name,
+              name: 'monkeytype',
               version: p.version,
               main: p.main,
               description: p.description || 'Monkeytype offline desktop app',
